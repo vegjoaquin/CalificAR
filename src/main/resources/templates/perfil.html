@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalificAR - Mi Perfil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Lato:wght@100;300;400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/css/estilos.css">
+        <link rel="icon" href="/img/favicon.ico">
+</head>
+<body>
+	<div class="header">
+		<div class="container">
+			<a class="homebtn" href="/index"> <img class="logo" src="/img/Logo.png">
+			</a>
+			<div class="conjunto" align="right">
+				<img th:if="${session.alumnosession != null and session.alumnosession.foto != null}"
+					th:src="${'/foto/alumno/' + session.alumnosession.id}" alt="Foto de perfil" class="molde image">
+				<img th:if="${session.profesorsession != null and session.profesorsession.foto != null}"
+					th:src="${'/foto/profesor/' + session.profesorsession.id}" alt="Foto de perfil" class="molde image">
+				<img th:if="${(session.profesorsession == null or session.profesorsession.foto == null) and (session.alumnosession == null or session.alumnosession.foto == null)}"
+					src="/img/default.png" alt="Foto de perfil" class="molde image">
+				<a class="molde overlay">
+					<div class="text">Mi perfil</div>
+				</a>
+				<p th:if="${session.alumnosession != null}" th:text="${session.alumnosession.nombre} + ' ' + ${session.alumnosession.apellido}"></p>
+				<p th:if="${session.profesorsession != null}" th:text="${session.profesorsession.nombre} + ' ' + ${session.profesorsession.apellido}"></p>
+			</div>
+		</div>
+	</div>
+	<ul>
+		<li><a href="/inicio">Inicio</a></li>
+	</ul>
+	<p th:if="${error != null}" th:text="${error}" style="color: red;" align="center"></p>
+	<p th:if="${exito != null}" th:text="${exito}" style="color: green" align="center"></p>
+	<div class="row">
+
+		<div class="column">
+			<h1>Mi Perfil</h1>
+				<img th:if="${session.alumnosession != null and session.alumnosession.foto != null}"
+					th:src="${'/foto/alumno/' + session.alumnosession.id}" alt="Foto de perfil" class="image_profile">
+				<img th:if="${session.profesorsession != null and session.profesorsession.foto != null}"
+					th:src="${'/foto/profesor/' + session.profesorsession.id}" alt="Foto de perfil" class="image_profile"/>
+				<img th:if="${(session.profesorsession == null or session.profesorsession.foto == null) and (session.alumnosession == null or session.alumnosession.foto == null)}"
+					src="/img/default.png" alt="Foto de perfil" class="image_profile"/>
+		</div>
+
+		<div class="columnSecond">
+			<h3>Nombre:</h3>
+			<p th:if="${(session.profesorsession != null)}" th:text="${session.profesorsession.nombre}"></p>
+			<p th:if="${(session.alumnosession != null)}" th:text="${session.alumnosession.nombre}"></p>
+			<h3>Apellido:</h3>
+			<p th:if="${(session.profesorsession != null)}" th:text="${session.profesorsession.apellido}"></p>
+			<p th:if="${(session.alumnosession != null)}" th:text="${session.alumnosession.apellido}"></p>
+			<h3>Fecha de nacimiento:</h3>
+			<p th:if="${(session.profesorsession != null)}" th:text="${session.profesorsession.fechaNac}"></p>
+			<p th:if="${(session.alumnosession != null)}" th:text="${session.alumnosession.fechaNac}"></p>
+			<h3>Email:</h3>
+			<p th:if="${(session.profesorsession != null)}" th:text="${session.profesorsession.mail}"></p>
+			<p th:if="${(session.alumnosession != null)}" th:text="${session.alumnosession.mail}"></p>
+			<h3>DNI:</h3>
+			<p th:if="${(session.profesorsession != null)}" th:text="${session.profesorsession.login.dni}"></p>
+			<p th:if="${(session.alumnosession != null)}" th:text="${session.alumnosession.login.dni}"></p>
+		</div>
+
+	</div>
+	<a class="buttontop" th:href="@{/modificarusuario}">Editar Perfil</a>
+</body>
+</html>
+
