@@ -39,7 +39,7 @@ public class CodigoProfesorController {
                 codigoProfesorServicio.cargarCodigo(codigo);
             } catch (ErrorServicio ex) {
                 modelo.put("error", ex.getMessage());
-                return "cargarCodigo";
+                return "crearCodigo";
             }
             
             modelo.put("exito", "Su código ha sido creado satisfactoriamente");
